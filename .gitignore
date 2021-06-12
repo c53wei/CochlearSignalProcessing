@@ -1,0 +1,5 @@
+# ignore plots
+*.png
+# ignore audio samples (too much storage)
+*.wav
+*.m4a
