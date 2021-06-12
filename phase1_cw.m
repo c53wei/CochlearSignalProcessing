@@ -1,9 +1,10 @@
 % Define audio files to process
 audiofiles = ["moving_sound.m4a" "background_noise.m4a"];
-for i = 1:length(audiofiles)
-    % Perform QA on files if necessary
-    formatSound(audiofiles(i));
-end 
+% Container to store all matrices by applying function to list
+[signal_data, Fs_data] = arrayfun(@(x) formatSound(x), audiofiles, ...
+    'UniformOutput', false);
+% Creates waveform plots for each audiofile
+cellfun(@plotWaveform, signal_data, num2cell(audiofiles));
 
 function [y, Fs] = formatSound(filename)
 % Reads audio file, resampling and converting to mono if needed
@@ -26,4 +27,13 @@ if n == 2
 end
 % Write resampled file
 audiowrite(strcat(name, '_resampled.wav'),y,Fs);
+end
+
+function plotWaveform(signal_values, filename)
+% Generates & saves waveform plots and titles based on sample name
+[~, name, ~] = fileparts(filename);
+plot(signal_values);
+xlabel('Sample Number');
+ylabel('Value (Units?)');
+saveas(gcf, strcat(name, '.png'))
 end
