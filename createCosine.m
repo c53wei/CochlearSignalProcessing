@@ -6,8 +6,9 @@ function y = createCosine(sample_data, sample_Fs, cos_Fs, filename)
 % Calculate original duration of sample signal
 signal_duration = length(sample_data)/sample_Fs;
 % Setup dependent & independent values for cosine plot
-n = 0:cos_Fs*signal_duration; % Number of samples needed
-y = cos(2*pi*cos_Fs .*n);
+t = 0:sample_Fs^-1:signal_duration;
+y = cos(2*pi*cos_Fs .*t);
+audiowrite(strcat(name, '_cos1khz.wav'), y, sample_Fs);
 
 % Extract 2 cycles only
 % Since frequency is 1000 Hz, it will take 2 ms to complete 2 cycles
