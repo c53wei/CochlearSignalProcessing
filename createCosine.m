@@ -18,6 +18,6 @@ time = linspace(0, 2e-3, 1000);
 yshort = cos(2*pi*cos_Fs .*time);
 plot(time.*1e3, yshort);
 xlabel('Time (ms)');
-ylabel('Value (Units?)'); 
+ylabel(''); 
 saveas(gcf, strcat(name, '_1kHz_2cycles.png'));
 end
