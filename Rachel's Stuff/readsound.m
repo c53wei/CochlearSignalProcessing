@@ -9,7 +9,7 @@ forkProcessed = process(fork,sampleRate,1,'.wav');
 knifeProcessed = process(knife, sampleRate,2,'.wav');
 fingerProcessed = process(finger, sampleRate,3,'.wav');
 scaryProcessed = process(scary, sampleRate,4, '.m4a');
-caterProcessed = process(caterpillar, sampleRate, 5, '.m4a')
+caterProcessed = process(caterpillar, sampleRate, 5, '.m4a');
 cosinePlot();
 
 f = @process;
