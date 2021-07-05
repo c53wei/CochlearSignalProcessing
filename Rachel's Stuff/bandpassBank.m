@@ -8,7 +8,7 @@
 %function separateSound(filename)
 % Reads separates the input sound by passing them thru different BPFs
 
-[y,Fs1] = audioread("caterpillar_resampled.wav");
+[y,Fs1] = audioread("../moving_sound_resampled.wav");
 
 % 1-5
 y1 = filter(F100_500, y);
@@ -16,8 +16,8 @@ plot(y1)
 sound(y1, Fs1);
 rect_y1 = abs(y1);
 plot(rect_y1)
-label('Time (s)')
-label('Amplitude')
+xlabel('Time (s)')
+ylabel('Amplitude')
 
 % 5-7
 y2 = filter(F500_700, y);

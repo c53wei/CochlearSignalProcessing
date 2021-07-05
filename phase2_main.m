@@ -1,4 +1,4 @@
-%% Task 5: Filter sounds with pass bank
+% Task 5: Filter sounds with pass bank
 
 % Define audio files to process
 audiofiles = ["../moving_sound_resampled.wav" "../background_noise_resampled.wav"];
@@ -19,10 +19,18 @@ for i=1:length(audiofiles)
         repmat({signal}, 1, length(filters)), 'UniformOutput', false);
     % Rectify each frequency
     split_band = cellfun(@abs, split_band, 'UniformOutput', false);
-    % Plot lowest and highest frequency bandwidths
+    % Task 6: Plot lowest and highest frequency bandwidths
     [~, name, ~] = fileparts(audiofiles(i));
-    plot(split_band(1))
-    xlabel('Amplitude');
-    ylabel('Sample Number');
+    plot(split_band{1});
+    ylabel('Amplitude');
+    xlabel('Sample Number');
     title(strcat(num2str(bw{1}), 'Hz'));
+    saveas(gcf, strcat(name, '_LowFreq.png'));
+    
+    plot(split_band{length(split_band)});
+    ylabel('Amplitude');
+    xlabel('Sample Number');
+    title(strcat(num2str(bw{length(split_band)}), 'Hz'));
+    saveas(gcf, strcat(name, '_HighFreq.png'));
+    close all
 end
