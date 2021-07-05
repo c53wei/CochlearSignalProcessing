@@ -1,7 +1,7 @@
 % Task 5: Filter sounds with pass bank
 
 % Define audio files to process
-audiofiles = ["../moving_sound_resampled.wav" "../background_noise_resampled.wav"];
+audiofiles = ["moving_sound_resampled.wav" "background_noise_resampled.wav"];
 [signal_data, Fs_data] = arrayfun(@(x) audioread(x), audiofiles, ...
     'UniformOutput', false);
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
