@@ -19,7 +19,7 @@ for i=1:length(audiofiles)
     split_band = cellfun(@filter, num2cell(filters), ...
         repmat({signal}, 1, length(filters)), 'UniformOutput', false);
     % Task 6: Plot lowest and highest frequency bandwidths
-    [~, name, ~] = fileparts(audiofiles(i));
+    [~, name, ~] = fileparts(audiofiles{i});
     plot(split_band{1});
     ylabel('Amplitude');
     xlabel('Sample Number');
