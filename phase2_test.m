@@ -1,4 +1,4 @@
-audiofile = 'background_noise_resampled.wav';
+audiofile = 'Knife on bottle_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
 bw = {[100 500] [500 700] [700 900] [900 1100] [1100 1300] ...
@@ -13,17 +13,7 @@ split_band = cellfun(@filter, num2cell(filters), ...
     repmat({signal}, 1, length(filters)), 'UniformOutput', false);
 % Task 6: Plot lowest and highest frequency bandwidths
 [~, name, ~] = fileparts(audiofile);
-plot(split_band{1});
-ylabel('Amplitude');
-xlabel('Sample Number');
-title(strcat(num2str(bw{1}), 'Hz'));
-saveas(gcf, strcat(name, '_LowFreq.png'));
 
-plot(split_band{length(split_band)});
-ylabel('Amplitude');
-xlabel('Sample Number');
-title(strcat(num2str(bw{length(split_band)}), 'Hz'));
-saveas(gcf, strcat(name, '_HighFreq.png'));
 % Task 7: Rectify each frequency
 split_band = cellfun(@abs, split_band, 'UniformOutput', false);
 % Task 8: Run it through LPF
