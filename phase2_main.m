@@ -13,6 +13,7 @@ filters = cellfun(@bandPass, bw);
 
 % For each audio file, run each filter interval on it
 for i=1:length(audiofiles)
+    hold off;
     % Isolate audio file of interest
     signal = signal_data{i};
     % Separate audio file into frequencies of interest
@@ -35,19 +36,24 @@ for i=1:length(audiofiles)
     % Task 7: Rectify each frequency
     split_band = cellfun(@abs, split_band, 'UniformOutput', false);
     % Task 8: Run it through LPF
-    split_band = cellfun(@filter, repmat({LPF}, 1, length(filters)), ...
+    envelope = cellfun(@filter, repmat({LPF}, 1, length(filters)), ...
         split_band, 'UniformOutput', false);
+    % Plot lowest frequency
     plot(split_band{1});
+    hold on;
+    plot(envelope{1});
     ylabel('Amplitude');
     xlabel('Sample Number');
     title(strcat(num2str(bw{1}), 'Hz'));
     saveas(gcf, strcat(name, '_LowFreqEnvelope.png'));
-    
+    hold off;
+    % Plot highest frequency
     plot(split_band{length(split_band)});
+    hold on;
+    plot(envelope{length(envelope)});
     ylabel('Amplitude');
     xlabel('Sample Number');
     title(strcat(num2str(bw{length(split_band)}), 'Hz'));
     saveas(gcf, strcat(name, '_HighFreqEnvelope.png'));
-    
     close all
 end
