@@ -41,7 +41,7 @@ for i=1:length(audiofiles)
     % Plot lowest frequency
     plot(split_band{1});
     hold on;
-    plot(envelope{1});
+    plot(2*envelope{1});
     ylabel('Amplitude');
     xlabel('Sample Number');
     title(strcat(num2str(bw{1}), 'Hz'));
@@ -50,7 +50,7 @@ for i=1:length(audiofiles)
     % Plot highest frequency
     plot(split_band{length(split_band)});
     hold on;
-    plot(envelope{length(envelope)});
+    plot(2*envelope{length(envelope)});
     ylabel('Amplitude');
     xlabel('Sample Number');
     title(strcat(num2str(bw{length(split_band)}), 'Hz'));
