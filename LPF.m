@@ -8,10 +8,10 @@ function Hd = LPF
 % Equiripple Lowpass filter designed using the FIRPM function.
 
 % All frequency values are in Hz.
-Fs = 1000000;  % Sampling Frequency
+Fs = 44000;  % Sampling Frequency
 
 Fpass = 400;         % Passband Frequency
-Fstop = 10000;         % Stopband Frequency
+Fstop = 1000;         % Stopband Frequency
 Apass = 1;           % Passband Ripple (dB)
 Astop = 80;          % Stopband Attenuation (dB)
 match = 'stopband';  % Band to match exactly
