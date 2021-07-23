@@ -1,4 +1,4 @@
-audiofile = 'Knife on bottle_resampled.wav';
+audiofile = 'caterpillar_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
 bw = {[100 500] [500 700] [700 900] [900 1100] [1100 1300] ...
@@ -37,3 +37,16 @@ xlabel('Sample Number');
 title(strcat(num2str(bw{length(split_band)}), 'Hz'));
 saveas(gcf, strcat(name, '_HighFreqEnvelope.png'));
 close all
+
+modulate = zeros(size(split_band{1}, 1), length(split_band));
+for i=length(split_band)
+    % Get centre frequency
+    fc = sqrt(bw{i}(1)*bw{i}(2));
+    % Create cosine with oscillation of centre frequency of passband
+    cosine = createCosine(split_band{i}, 16000, fc, ...
+        strcat(num2str(bw{1}), '_Hz.wav'));
+    % Modulate cosine with envelope of other
+    modulate(:,i) = envelope{i} .* split_band{i};
+end
+
+final = sum(modulate, 2);
