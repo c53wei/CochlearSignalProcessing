@@ -1,4 +1,4 @@
-audiofile = 'caterpillar_resampled.wav';
+audiofile = 'Knife on bottle_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
 bw = {[100 500] [500 700] [700 900] [900 1100] [1100 1300] ...
@@ -19,6 +19,7 @@ split_band = cellfun(@abs, split_band, 'UniformOutput', false);
 % Task 8: Run it through LPF
 envelope = cellfun(@filter, repmat({LPF}, 1, length(filters)), ...
     split_band, 'UniformOutput', false);
+
 % Plot lowest frequency
 plot(split_band{1});
 hold on;
@@ -40,6 +41,7 @@ close all
 
 modulate = zeros(size(split_band{1}, 1), length(split_band));
 for i=length(split_band)
+    envelope{i}=envelope{i}*2; 
     % Get centre frequency
     fc = sqrt(bw{i}(1)*bw{i}(2));
     % Create cosine with oscillation of centre frequency of passband
