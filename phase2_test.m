@@ -1,4 +1,4 @@
-audiofile = 'Knife on bottle_resampled.wav';
+audiofile = 'caterpillar_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
 bw = {[100 500] [500 700] [700 900] [900 1100] [1100 1300] ...
@@ -47,8 +47,9 @@ for i=length(split_band)
     % Create cosine with oscillation of centre frequency of passband
     cosine = createCosine(split_band{i}, 16000, fc, ...
         strcat(num2str(bw{1}), '_Hz.wav'));
+    cosine=cosine(1:length(cosine)-1);
     % Modulate cosine with envelope of other
-    modulate(:,i) = envelope{i} .* split_band{i};
+    modulate(:,i) = envelope{i} .* cosine.';
 end
 
 final = sum(modulate, 2);
