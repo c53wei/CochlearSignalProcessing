@@ -1,4 +1,4 @@
-audiofile = 'caterpillar_resampled.wav';
+audiofile = 'Knife on bottle_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
 bw = {[100 500] [500 700] [700 900] [900 1100] [1100 1300] ...
@@ -21,27 +21,27 @@ envelope = cellfun(@filter, repmat({LPF}, 1, length(filters)), ...
     split_band, 'UniformOutput', false);
 
 % Plot lowest frequency
-plot(split_band{1});
-hold on;
-plot(2*envelope{1});
-ylabel('Amplitude');
-xlabel('Sample Number');
-title(strcat(num2str(bw{1}), 'Hz'));
-saveas(gcf, strcat(name, '_LowFreqEnvelope.png'));
-hold off;
-% Plot highest frequency
-plot(split_band{length(split_band)});
-hold on;
-plot(2*envelope{length(envelope)});
-ylabel('Amplitude');
-xlabel('Sample Number');
-title(strcat(num2str(bw{length(split_band)}), 'Hz'));
-saveas(gcf, strcat(name, '_HighFreqEnvelope.png'));
-close all
+% plot(split_band{1});
+% hold on;
+% plot(2*envelope{1});
+% ylabel('Amplitude');
+% xlabel('Sample Number');
+% title(strcat(num2str(bw{1}), 'Hz'));
+% saveas(gcf, strcat(name, '_LowFreqEnvelope.png'));
+% hold off;
+% % Plot highest frequency
+% plot(split_band{length(split_band)});
+% hold on;
+% plot(2*envelope{length(envelope)});
+% ylabel('Amplitude');
+% xlabel('Sample Number');
+% title(strcat(num2str(bw{length(split_band)}), 'Hz'));
+% saveas(gcf, strcat(name, '_HighFreqEnvelope.png'));
+% close all
 
 modulate = zeros(size(split_band{1}, 1), length(split_band));
 for i=length(split_band)
-    envelope{i}=envelope{i}*2; 
+%     envelope{i}=envelope{i}*2; 
     % Get centre frequency
     fc = sqrt(bw{i}(1)*bw{i}(2));
     % Create cosine with oscillation of centre frequency of passband
