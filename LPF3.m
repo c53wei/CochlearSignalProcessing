@@ -11,7 +11,7 @@ function Hd = LPF3
 Fs = 16000;  % Sampling Frequency
 
 N  = 5;    % Order
-Fc = 400;  % Cutoff Frequency
+Fc = 1200;  % Cutoff Frequency
 
 % Construct an FDESIGN object and call its BUTTER method.
 h  = fdesign.lowpass('N,F3dB', N, Fc, Fs);
