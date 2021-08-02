@@ -21,7 +21,7 @@ end
 Fpass1 = fc1;         % First Passband Frequency
 Fpass2 = fc2;         % Second Passband Frequency
 Fstop2 = fc2 + 100;   % Second Stopband Frequency
-Fs = 44000;  % Sampling Frequency
+Fs = 16200;  % Sampling Frequency
 Astop1 = 60;          % First Stopband Attenuation (dB)
 Apass  = 1;           % Passband Ripple (dB)
 Astop2 = 80;          % Second Stopband Attenuation (dB)

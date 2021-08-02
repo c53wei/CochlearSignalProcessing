@@ -1,4 +1,4 @@
-function Hd = NewBand(fc1, fc2)
+function Hd = IIRButter(interval)
 %NEWBAND Returns a discrete-time filter object.
 
 % MATLAB Code
@@ -11,8 +11,8 @@ function Hd = NewBand(fc1, fc2)
 Fs = 16000;  % Sampling Frequency
 
 N   = 10;   % Order
-Fc1 = fc1;  % First Cutoff Frequency
-Fc2 = fc2 + 50;  % Second Cutoff Frequency
+Fc1 = interval(1);  % First Cutoff Frequency
+Fc2 = interval(2) + 50;  % Second Cutoff Frequency
 
 % Construct an FDESIGN object and call its BUTTER method.
 h  = fdesign.bandpass('N,F3dB1,F3dB2', N, Fc1, Fc2, Fs);
