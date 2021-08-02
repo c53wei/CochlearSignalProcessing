@@ -1,5 +1,5 @@
 intervals = logspace(2,log10(8000),10); % generates n points between decades 10^a and 10^b.
-audiofile = 'radio_resampled.wav';
+audiofile = 'moving_sound_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
@@ -21,7 +21,7 @@ split_band = cellfun(@filter, num2cell(filters), ...
 [~, name, ~] = fileparts(audiofile);
 
 % Task 7: Rectify each frequency
-% split_band = cellfun(@abs, split_band, 'UniformOutput', false);
+split_band = cellfun(@abs, split_band, 'UniformOutput', false);
 % Task 8: Run it through LPF
 envelope = cellfun(@filter, repmat({LPF3}, 1, length(filters)), ...
     split_band, 'UniformOutput', false);
@@ -35,9 +35,7 @@ for i=1:9
     cosine = createCosine(split_band{i}, 16000, fc, ...
         strcat(num2str(bw{i}), '_Hz.wav'));
     cosine=cosine(1:length(cosine)-1);
-%     sound(cosine, 16000);
     % Modulate cosine with envelope of other
-    bob = envelope{i} .*cosine.';
     modulate(:,i) = envelope{i} .* cosine.';
 end
 
