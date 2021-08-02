@@ -40,4 +40,5 @@ for i=1:9
 end
 
 final = sum(modulate, 2);
+final = final./max(abs(final));
 sound(final, 16000);
