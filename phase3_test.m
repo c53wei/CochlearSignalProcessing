@@ -1,14 +1,14 @@
-intervals = logspace(2,log10(8000),10); % generates n points between decades 10^a and 10^b.
-audiofile = 'moving_sound_resampled.wav';
+audiofile = 'caterpillar_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
-bw = {[intervals(1) intervals(2)] [intervals(2) intervals(3)] ...
-    [intervals(3) intervals(4)] [intervals(4) intervals(5)] ...
-    [intervals(5) intervals(6)] [intervals(6) intervals(7)] ...
-    [intervals(7) intervals(8)] [intervals(8) intervals(9)] ...
-    [intervals(9) intervals(10)-51] 
-    };
+intervals = logspace(2,log10(8000),100); % generates n points between decades 10^a and 10^b.
+intervals(end) = intervals(end)-51;
+bw = zeros(length(intervals)-1, 2);
+bw(:, 1) = intervals(1:end-1);
+bw(:, 2) = intervals(2:end);
+bw = num2cell(bw,2).';
+
 % Creates list of filter functions that can be called later 'in parallel'
 filters = cellfun(@IIRButter, bw);
 
@@ -27,8 +27,8 @@ envelope = cellfun(@filter, repmat({LPF3}, 1, length(filters)), ...
     split_band, 'UniformOutput', false);
     
 modulate = zeros(size(split_band{1}, 1), length(split_band));
-for i=1:9
-    envelope{i}=envelope{i}*2; 
+for i=1:length(split_band)
+    envelope{i}=envelope{i}.*2; 
     % Get centre frequency
     fc = sqrt(bw{i}(1)*bw{i}(2));
     % Create cosine with oscillation of centre frequency of passband
