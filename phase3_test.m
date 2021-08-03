@@ -10,10 +10,9 @@ bw(:, 2) = intervals(2:end);
 bw = num2cell(bw,2).';
 
 % Creates list of filter functions that can be called later 'in parallel'
-filters = cellfun(@IIRButter, bw);
+filters = cellfun(@Chebyshev_bpf, bw);
 
 % Run each filter interval on it
-% hold off;
 % Separate audio file into frequencies of interest
 split_band = cellfun(@filter, num2cell(filters), ...
     repmat({signal}, 1, length(filters)), 'UniformOutput', false);
