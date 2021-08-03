@@ -1,16 +1,16 @@
-intervals = logspace(2,log10(8000),10); % generates n points between decades 10^a and 10^b.
-audiofile = 'moving_sound_resampled.wav';
+audiofile = 'caterpillar_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
-bw = {[intervals(1) intervals(2)] [intervals(2) intervals(3)] ...
-    [intervals(3) intervals(4)] [intervals(4) intervals(5)] ...
-    [intervals(5) intervals(6)] [intervals(6) intervals(7)] ...
-    [intervals(7) intervals(8)] [intervals(8) intervals(9)] ...
-    [intervals(9) intervals(10)-51] 
-    };
+intervals = logspace(2,log10(8000),100); % generates n points between decades 10^a and 10^b.
+intervals(end) = intervals(end)-51;
+bw = zeros(length(intervals)-1, 2);
+bw(:, 1) = intervals(1:end-1);
+bw(:, 2) = intervals(2:end);
+bw = num2cell(bw,2).';
+
 % Creates list of filter functions that can be called later 'in parallel'
-filters = cellfun(@Chebyshev_bpf, bw);
+filters = cellfun(@IIRButter, bw);
 
 % Run each filter interval on it
 % Separate audio file into frequencies of interest
