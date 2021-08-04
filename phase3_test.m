@@ -1,4 +1,4 @@
-audiofile = 'caterpillar_resampled.wav';
+audiofile = 'use_resampled.wav';
 [signal, Fs_data] = audioread(audiofile);
 
 % Define bandwidth intervals from 100 Hz to 8 kHz – Feel free to modify
@@ -16,8 +16,6 @@ filters = cellfun(@IIRButter, bw);
 % Separate audio file into frequencies of interest
 split_band = cellfun(@filter, num2cell(filters), ...
     repmat({signal}, 1, length(filters)), 'UniformOutput', false);
-% Task 6: Plot lowest and highest frequency bandwidths
-[~, name, ~] = fileparts(audiofile);
 
 % Task 7: Rectify each frequency
 split_band = cellfun(@abs, split_band, 'UniformOutput', false);
@@ -41,3 +39,5 @@ end
 final = sum(modulate, 2);
 final = final./max(abs(final));
 sound(final, 16000);
+[~, name, ~] = fileparts(audiofile);
+audiowrite(strcat(name, '_final.wav'),final,Fs_data);
